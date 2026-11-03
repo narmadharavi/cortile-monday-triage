@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { demo, demoNow } from './demo.ts'
-import { prioritise } from './prioritise.ts'
+import { demo, demoNow } from '../src/demo.ts'
+import { prioritise } from '../src/prioritise.ts'
 
 test('possible property damage outranks reported urgency and resolved work is excluded', () => {
   const rows = prioritise(demo, demoNow)
@@ -14,7 +14,7 @@ test('surfaces distinct evidence for resident experience, delays and possible wi
   const [, feedback, unanswered] = prioritise(demo, demoNow)
   assert.match(feedback.reasons.join('\n'), /2 homes/)
   assert.match(feedback.reasons.join('\n'), /1\/5/)
-  assert.match(feedback.reasons.join('\n'), /another ticket/)
+  assert.match(feedback.reasons.join('\n'), /multiple tickets/)
   assert.match(feedback.reasons.join('\n'), /9 days/)
   assert.ok(unanswered.reasons.includes('No first response recorded'))
 })

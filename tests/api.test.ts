@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { collectPages, createApiClient } from './api.ts'
+import { collectPages, createApiClient } from '../src/api.ts'
 
 test('follows opaque cursors across an empty page', async () => {
   const seen: (string | null)[] = []

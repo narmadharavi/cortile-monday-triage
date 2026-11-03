@@ -35,8 +35,11 @@ export function prioritise(snapshot: Snapshot, now: number) {
     const homes = new Set(group.filter(peer => Math.abs(Date.parse(peer.createdAt) - created) <= 2 * DAY)
       .map(peer => peer.homeId).filter(id => id !== null))
     const ratings = recentLow.filter(item => item.ticketId === ticket.id)
-    const repeated = ratings.some(rating => recentLow.some(other =>
-      other.residentId === rating.residentId && other.ticketId !== ticket.id))
+    const relevantResidents = new Set(ratings.map(rating => rating.residentId))
+    if (ticket.reportedByResidentId) relevantResidents.add(ticket.reportedByResidentId)
+    const repeated = [...relevantResidents].some(residentId => new Set(recentLow
+      .filter(item => item.residentId === residentId && item.ticketId !== null)
+      .map(item => item.ticketId)).size >= 2)
     const reasons: string[] = []
     const risk = Boolean(hazard || damage)
     let followUp = 0
@@ -53,7 +56,7 @@ export function prioritise(snapshot: Snapshot, now: number) {
     }
     if (repeated) {
       followUp += 2
-      reasons.push('Recent low feedback from the same resident on another ticket')
+      reasons.push('Recent low feedback from the same resident on multiple tickets')
     }
     if (ticket.firstResponseAt === null) {
       followUp += age >= 1 ? 2 : 1
@@ -68,6 +71,7 @@ export function prioritise(snapshot: Snapshot, now: number) {
     const band: Band = risk ? 'Review first' : followUp > 0 ? 'Follow up' : 'Routine'
     const occupants = ticket.homeId === null ? null : new Set(snapshot.residents
       .filter(resident => resident.homeId === ticket.homeId
+        && (!resident.moveInDate || Date.parse(resident.moveInDate) <= now)
         && (resident.moveOutDate === null || Date.parse(resident.moveOutDate) > now))
       .map(resident => resident.id)).size
     return { ticket, band, reasons, age, occupants, risk, followUp, reported }
