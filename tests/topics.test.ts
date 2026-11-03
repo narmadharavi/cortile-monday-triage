@@ -12,8 +12,8 @@ test('topics combine category, wording and location independently of immediate p
   ]
   const rows = prioritise({ tickets, residents: [], feedback: [] }, demoNow)
   const byId = new Map(rows.map(row => [row.ticket.id, row]))
-  assert.deepEqual(byId.get('lift')?.topics, ['Security & access', 'Lifts', 'Communal areas'])
-  assert.deepEqual(byId.get('dishwasher')?.topics, ['Plumbing & leaks', 'Appliances'])
-  assert.deepEqual(byId.get('window')?.topics, ['Security & access'])
+  assert.deepEqual(byId.get('lift')?.topics, ['Access', 'Lifts', 'Communal'])
+  assert.deepEqual(byId.get('dishwasher')?.topics, ['Plumbing', 'Appliances'])
+  assert.deepEqual(byId.get('window')?.topics, ['Access'])
   assert.ok(rows.every(row => !row.immediate))
 })

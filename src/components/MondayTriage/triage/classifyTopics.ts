@@ -1,12 +1,12 @@
 import type { Ticket } from '../../../model.ts'
 
 const topicRules = [
-  { label: 'Security & access', categories: ['DOOR_ACCESS', 'LIFT'],
+  { label: 'Access', categories: ['DOOR_ACCESS', 'LIFT'],
     wording: /\b(?:windows?|front doors?|entry doors?|locks?|key fobs?|intercoms?|lifts?|elevators?|communal)\b/i },
   { label: 'Lifts', categories: ['LIFT'], wording: /\b(?:lifts?|elevators?)\b/i },
-  { label: 'Plumbing & leaks', categories: ['LEAK'],
+  { label: 'Plumbing', categories: ['LEAK'],
     wording: /\b(?:leaks?|leaking|toilets?|drains?|draining|flooding|water supply|running water)\b/i },
-  { label: 'Heating & hot water', categories: ['HEATING'],
+  { label: 'Heating', categories: ['HEATING'],
     wording: /\b(?:heating|radiators?|boilers?|hot water)\b/i },
   { label: 'Electrical', categories: ['ELECTRICAL'],
     wording: /\b(?:electrics|electrical|electricity|sockets?|wiring|power (?:cut|outage))\b/i },
@@ -23,7 +23,7 @@ export function classifyTopics(ticket: Ticket): string[] {
     .map(rule => rule.label)
 
   if (ticket.homeId === null || /\b(?:communal|shared areas?|common areas?)\b/i.test(wording)) {
-    topics.push('Communal areas')
+    topics.push('Communal')
   }
-  return topics.length ? topics : ['General repairs']
+  return topics.length ? topics : ['General']
 }

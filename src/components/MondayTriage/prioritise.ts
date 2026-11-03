@@ -35,15 +35,15 @@ export function prioritise(snapshot: Snapshot, now: number) {
 
     if (homes.size >= 2) {
       followUp += 4
-      tags.push({ label: `Possible wider issue · ${homes.size} homes`, evidence: `Similar reports in ${ticket.blockId} within 48 hours of this report` })
+      tags.push({ label: `Cluster · ${homes.size} homes`, evidence: `Similar reports in ${ticket.blockId} within 48 hours of this report` })
     }
     if (ratings.length) {
       followUp += 3
-      tags.push({ label: `Low satisfaction · ${Math.min(...ratings.map(item => item.score))}/5`, evidence: 'Ticket feedback in the last 30 days' })
+      tags.push({ label: `Low rating · ${Math.min(...ratings.map(item => item.score))}/5`, evidence: 'Ticket feedback in the last 30 days' })
     }
     if (repeated) {
       followUp += 2
-      tags.push({ label: 'Repeated low feedback', evidence: 'Recent low feedback from the same resident on multiple tickets' })
+      tags.push({ label: 'Repeat low ratings', evidence: 'Recent low feedback from the same resident on multiple tickets' })
     }
     if (overdue) followUp += 2
 

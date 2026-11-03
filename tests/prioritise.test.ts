@@ -33,7 +33,7 @@ test('category needs corroborating wording and clusters need distinct homes in o
     : ticket.id === 'RQ-094' ? { ...ticket, blockId: 'Block A' } : ticket)
   const rows = prioritise({ ...demo, tickets }, demoNow)
   assert.ok(rows.every(row => row.band !== 'Review first'))
-  assert.ok(rows.every(row => row.tags.every(tag => !tag.label.includes('Possible wider issue'))))
+  assert.ok(rows.every(row => row.tags.every(tag => !tag.label.startsWith('Cluster'))))
 })
 
 test('possible lift door faults outrank routine appliance failures', () => {
@@ -62,7 +62,7 @@ test('communal safety risks rank ahead of other risks without promoting routine 
   ]
   const rows = prioritise({ tickets, feedback: [], residents: [] }, demoNow)
   assert.deepEqual(rows.map(row => row.ticket.id), ['communal', 'private', 'routine'])
-  assert.ok(rows[0].tags.some(tag => tag.label === 'Communal safety risk'))
+  assert.ok(rows[0].tags.some(tag => tag.label === 'Shared safety'))
   assert.equal(rows[2].band, 'Routine')
 })
 

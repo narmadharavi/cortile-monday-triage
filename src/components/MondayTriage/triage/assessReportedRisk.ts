@@ -29,19 +29,19 @@ export function assessReportedRisk(ticket: Ticket) {
   const tags: TriageTag[] = []
 
   if (hazard) tags.push({
-    label: communalSafety ? 'Communal safety risk' : 'Possible safety risk',
+    label: communalSafety ? 'Shared safety' : 'Safety risk',
     evidence: `Possible safety or essential-service risk · “${hazard[0]}”`,
   })
   if (utilityRestriction) tags.push({
-    label: 'Possible essential-service restriction',
+    label: 'Service loss',
     evidence: `Reported loss of an essential service · “${utilityRestriction[0]}”`,
   })
   if (waterDamageClue) tags.push({
-    label: 'Property damage risk',
+    label: 'Damage risk',
     evidence: `Possible worsening property damage · “${waterDamageClue[0]}”`,
   })
   if (equipmentFaultClue) tags.push({
-    label: 'Possible equipment fault',
+    label: 'Equipment fault',
     evidence: `Reported equipment failure · “${equipmentFaultClue[0]}”`,
   })
 
