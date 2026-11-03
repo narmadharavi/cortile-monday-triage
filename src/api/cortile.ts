@@ -1,5 +1,5 @@
-import { listResource } from './api.ts'
-import type { Feedback, Resident, Snapshot, Ticket } from './model.ts'
+import { listResource } from './listResource.ts'
+import type { Feedback, Resident, Snapshot, Ticket } from '../model.ts'
 
 export const API_BASE = 'https://takehome.cortile.com/api/v1'
 export const SNAPSHOT_TIME = Date.parse('2026-09-30T08:00:00.000Z')
@@ -11,7 +11,7 @@ type Community = { id: string; name: string }
 export async function loadRiverside(signal?: AbortSignal, request: typeof fetch = fetch): Promise<Snapshot> {
   function list<T>(path: string, communityId?: string) {
     const url = new URL(`${API_BASE}/${path}`)
-    url.searchParams.set('limit', '100')
+    url.searchParams.set('limit', '10')
     if (communityId) url.searchParams.set('communityId', communityId)
     return listResource<T>({
       url: url.href,

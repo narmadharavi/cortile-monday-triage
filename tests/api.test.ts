@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { collectPages, createApiClient } from '../src/api.ts'
+import { collectPages } from '../src/api/collectPages.ts'
+import { listResource } from '../src/api/listResource.ts'
 
 test('follows opaque cursors across an empty page', async () => {
   const seen: (string | null)[] = []
@@ -30,8 +31,5 @@ test('preserves resource filters and passes the encoded cursor on subsequent req
     url: 'https://example.invalid/list?building=riverside',
     decodePage: (payload: unknown) => payload as { items: never[], nextCursor: string | null },
   }
-  const client = createApiClient({
-    tickets: resource, feedback: resource, residents: resource, cursorParam: 'after', fetcher,
-  })
-  assert.deepEqual(await client.load(), { tickets: [], feedback: [], residents: [] })
+  assert.deepEqual(await listResource(resource, 'after', undefined, fetcher), [])
 })

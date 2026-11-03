@@ -1,5 +1,5 @@
-import type { Snapshot, Ticket } from './model.ts'
-import { DAY } from './prioritise.ts'
+import type { Snapshot, Ticket } from '../../model.ts'
+import { DAY } from './triage/time.ts'
 
 export const demoNow = Date.parse('2026-11-02T09:00:00Z')
 const before = (days: number) => new Date(demoNow - days * DAY).toISOString()

@@ -45,7 +45,6 @@ button { font: inherit; cursor: pointer; }
 .queue { padding: 0; list-style: none; display: grid; gap: 12px; }
 article { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px; overflow-wrap: anywhere; }
 .ticket-top { justify-content: space-between; }
-.reasons { margin: 14px 0; padding: 12px 14px; line-height: 1.5; background: #f7f7fb; border-radius: 8px; }
 summary { cursor: pointer; font-weight: 650; color: var(--accent); }
 .source-toggle { margin: 4px 0 4px 8px; font-size: .82rem; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
@@ -71,7 +70,18 @@ summary { cursor: pointer; font-weight: 650; color: var(--accent); }
 .description dd { line-height: 1.55; white-space: pre-wrap; }
 .category { text-transform: capitalize; }
 
-.reasons h4 { margin: 0; font-size: .83rem; }
-.reasons ul { margin: 5px 0 0; padding-left: 19px; }
 article details { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); }
 .detail-fields { margin-bottom: 0; }
+
+.ticket-tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 10px 0; }
+.response-note { display: block; margin-top: 4px; color: var(--muted); }
+
+.inbox-panel { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-top: 14px; }
+.immediate-panel { border-top: 3px solid #8d252d; }
+.inbox-heading { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.inbox-heading h3 { margin: 0; }
+.inbox-panel .queue { margin-bottom: 0; }
+.other-panel[open] > summary { margin-bottom: 14px; }
+.other-panel > summary .badge { margin-left: 6px; }
+.topic-filter { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 12px 0; font-weight: 600; }
+.topic-filter select { font: inherit; color: inherit; background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; }
