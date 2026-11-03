@@ -60,3 +60,13 @@ The API serves a fixed snapshot from 30 September 2026 at 08:00 UTC. Ticket age,
 - `src/components/MondayTriage/` contains the page component, ticket list, demo data and ranking rules. The `triage/` subfolder evaluates risk, response gaps and feedback.
 - `src/api/` contains the Cortile API client and cursor pagination.
 - `tests/` covers ranking, response and satisfaction signals, cluster safeguards, occupancy independence and pagination.
+
+## Future work
+
+- **Validate the ranking with building managers.** Ask managers to rank a representative set of tickets from the snapshot and explain their decisions. Compare those decisions with the queue to identify missed risks, misleading phrases and follow-up signals that carry too much weight.
+- **Use the latest meaningful activity.** With access to ticket history, calculate response gaps from the latest relevant update and show who is expected to act next. The current API exposes the first response only.
+- **Make clusters easier to investigate.** Let managers open the related reports from a cluster tag and compare their homes, timestamps and descriptions. This would help confirm whether the reports point to a shared fault.
+- **Connect the queue to the staff workflow.** Verified links into the staff app could open the original case. An authorised write API could support assignment, resolution and resident messaging.
+- **Strengthen the API boundary.** Validate individual ticket, home, resident and feedback records before using them in the queue. Make the retry delay cancellable so leaving the live view also ends any pending wait. Add tests for malformed responses, temporary failures and cancellation during retry.
+- **Separate data loading from page rendering.** Move the live and demo loading state into a dedicated hook if the workflow expands, so request lifecycle and source switching can be tested independently of the inbox layout.
+- **Cover the browser workflow.** Add tests for loading, retrying, switching data sources, combining topic and review-band filters, and expanding the lower queue. Verify that when six tickets qualify for immediate review, the first five appear at the top and the sixth retains its Review first label below.
